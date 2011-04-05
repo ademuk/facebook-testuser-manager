@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1 id="user_list">Existing Test Users</h1>
+
+<div id="user_list">
+<p class="cmds">
+	<a href="javascript:deleteAllUsers();" title="Click here to remove all users."><img src="images/delete.png" alt="Delete All Users"></a>
+	<a href="javascript:loadAllUserInfo();" title="Click here to load the users' details.">Load all users</a>
+</p>
+<h1>Existing Test Users</h1>
+</div>
 
 <div class="user_list">
 	<ul>
@@ -9,18 +16,15 @@
 		<li>
 		<div class="wrapper">
 			<p class="cmds">
-				<a href="{{user.login_url}}"><img src="images/connect.png" alt="User login URL" title="Click here to login with this user on facebook."></a>
-				<a href="javascript:addFriend({{user.id}},'{{user.access_token}}');"><img src="images/user_add.png" alt="Add new friend"  title="Click here to add a new friend to this user and see existing friends."></a>
-				<a href="javascript:deleteUser({{user.id}},'{{user.access_token}}');"><img src="images/delete.png" alt="Delete User"  title="Click here to remove this user."></a>
-				<a href="javascript:showToken('{{user.access_token}}');"><img src="images/token.png" alt="View Access Token" title="Click here to view this user's access token."></a>
+				<a href="{{user.login_url}}" title="Click here to login with this user on facebook."><img src="images/connect.png" alt="User login URL"></a>
+				<a href="javascript:addFriend({{user.id}},'{{user.access_token}}');" title="Click here to add a new friend to this user and see existing friends."><img src="images/user_add.png" alt="Add new friend"></a>
+				<a href="javascript:deleteUser({{user.id}},'{{user.access_token}}');" title="Click here to remove this user."><img src="images/delete.png" alt="Delete User"></a>
+				<a href="javascript:showToken('{{user.access_token}}');" title="Click here to view this user's access token."><img src="images/token.png" alt="View Access Token"></a>
+				<a href="javascript:loadUserInfo({{user.id}},'{{user.access_token}}');" title="Click here to load the user's details.">Load</a>
 			</p>
-		<p class="id">{{user.id}}</p>
+		<p>{{loop.index}}. <span class="id">{{user.id}}</span></p>
 		<p class="token hidden">{{user.access_token}}</p>
-		<div id="user_{{user.id}}_loading" class="holder">
-			<img src="images/loading-small.gif" alt="">
-		</div>
-		<div id="user_{{user.id}}">
-			
+		<div id="user_{{user.id}}" class="holder">
 		</div>
 
 		</li>
@@ -37,8 +41,8 @@
 			<ul>
 				<li>
 					<select name="target_user" id="target_user" onchange="" size="1">
-						{% for user in users %}
-						<option value="{{user.id}} {{user.access_token}}">{{user.name}}</option>
+						{% for key,user in users %}
+						<option value="{{user.id}} {{user.access_token}}">{{loop.index}}. {{user.name}}</option>
 						{% endfor %}>					
 					</select>
 				</li>
@@ -84,7 +88,7 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function(){
 		{% for user in users %}
-		loadUserInfo({{user.id}},'{{user.access_token}}');
+		//loadUserInfo({{user.id}},'{{user.access_token}}');
 		{% endfor %}
 		
 		initListOverlays();

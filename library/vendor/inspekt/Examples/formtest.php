@@ -14,7 +14,7 @@ require_once('../Inspekt.php');
 </head>
 
 <body>
-	<form action="formtest.php" method="POST">
+	<form action="formtest.php" method="post">
 		<h3>Enter 5 email addresses</h3>
 		<input type="text" name="email_addresses[group1][a]" value="foo1@bar.com" /><br />
 		<input type="text" name="email_addresses[group1][b]" value="foo2@bar.com" /><br />

@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 id="create_new_test_user">Create new test user</h1>
-<form action="create" method="post" accept-charset="utf-8">
+<form id="new_form" action="create" method="post" accept-charset="utf-8">
 	<fieldset id="link" class="">
 		<p class="instructions">To create a new Test User, valid only for your application and controllable by any developer of this application, fill in the form below. If you want more information on Test Users, view the <a href="http://developers.facebook.com/docs/test_users">documentation</a>.</p>
 		<ul>	
@@ -12,11 +12,35 @@
 			</li>
 			<li>
 				<label for="installed">Should the application already be installed?</label>
-				<input type="radio" name="installed"  value="1" checked="checked"> Yes
+				<input type="radio" name="installed" value="1" checked="checked"> Yes
 				<input type="radio" name="installed" value="0"> No
+			</li>
+			<li>
+				<label for="matrix">Apply friendship matrix?</label>
+				<input type="radio" name="matrix"  value="1"> Yes
+				<input type="radio" name="matrix" value="0" checked="checked"> No
+			</li>
+			<li>
+				<label for="matrix">Number of users</label>
+				<input type="text" name="quantity" id="quantity" value="1">
 			</li>
 			<li><input type="submit" value="Continue &rarr;"></li>
 		</ul>
 	</fieldset>
 </form>
+
+<div id="friendship_matrix" class="hidden modal form_div">
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		initListOverlays();
+
+		$('#new_form').submit(function(event){
+			submitNewUserForm();
+			event.preventDefault();
+		});
+	})
+</script>
 {% endblock %}
