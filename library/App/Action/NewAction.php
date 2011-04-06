@@ -9,7 +9,8 @@ class NewAction extends Base
 	{		
 		//Render Template
         $tpl = $this->getTplEngine()->loadTemplate('new.html');
-        $tpl->display(array());
+        $user_is_admin = (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true);
+        $tpl->display(array('user_is_admin' => $user_is_admin));
 	}
 	
 }

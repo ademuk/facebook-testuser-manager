@@ -10,7 +10,6 @@ class SetSessionAction extends Base
         //Check submitted
         $appId = $this->getInspekt()->post->getAlnum('fb_app_id');
         $appSecret = $this->getInspekt()->post->getAlnum('fb_app_secret');
-
         
         if ($appId) $_SESSION['FACEBOOK_APP_ID'] = $appId;
         if ($appSecret) $_SESSION['FACEBOOK_APP_SECRET'] = $appSecret;
@@ -34,11 +33,13 @@ class SetSessionAction extends Base
 
         //Render Template
 		$tpl = $this->getTplEngine()->loadTemplate('set_session.html');
+		$user_is_admin = (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true);
         $tpl->display(array(
             'appId' => $appId, 
             'appSecret' => $appSecret, 
             'sessionAppId' => $sessionAppId,
-            'noSession' => $noSession
+            'noSession' => $noSession, 
+        	'user_is_admin' => $user_is_admin
         ));
         
 	}

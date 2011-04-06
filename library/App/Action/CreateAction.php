@@ -30,7 +30,12 @@ class CreateAction extends Base
         }
 
         $tpl = $this->getTplEngine()->loadTemplate('create.html');
-        $tpl->display(array('error' => !isset($success), 'user' => $user));
+        $user_is_admin = (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true);
+        $tpl->display(array(
+        	'error' => !isset($success), 
+        	'user' => $user, 
+        	'user_is_admin' => $user_is_admin
+        ));
 
 	}
 	

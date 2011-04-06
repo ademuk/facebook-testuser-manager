@@ -29,7 +29,8 @@ abstract class Base implements iAction
 	 */
 	public function getTplEngine()
 	{
-		return \Zend_Registry::get('tplengine');
+		$tpl = \Zend_Registry::get('tplengine');
+		return $tpl;
 	}
 	
 	/**

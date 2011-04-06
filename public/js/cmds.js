@@ -70,7 +70,7 @@ function createUser() {
 	   error: function(response) {
 	       var r = $.parseJSON(response.responseText);
 	       openError(r.message, append);
-	       createUserHandler();
+	       //createUserHandler();
 	   }
 	});
 }
@@ -288,6 +288,66 @@ function renderFriendList(uid, token) {
     });
 }
 
+function addApp() {
+    $("#add_app").data().overlay.load();
+}
+
+function showAppLogin(url) {
+    $('#view_app_login_p').html(url);
+    $("#view_app_login").data().overlay.load();
+}
+
+function submitAddApp() {
+	$("#add_app").data().overlay.close();
+    openLoading();
+    
+    var data = {
+        app_name: $('#app_name').val(),
+        app_id: $('#app_id').val(),
+        facebook_app_id: $('#facebook_app_id').val(), 
+        facebook_app_secret: $('#facebook_app_secret').val()
+    }
+
+    $.ajax({
+        url: "ajax-add-app",
+        type: "POST",
+        data: data,
+        success: function(response) {
+            var r = $.parseJSON(response);
+            openSuccess(r.message);
+        },
+        error: function(response) {
+            var r = $.parseJSON(response.responseText);
+            openError(r.message);
+        }
+    });
+}
+
+function deleteApp(key, id) {
+	$('#app_' + id).parent().addClass('loading');
+	$.ajax({
+	   url: "ajax-delete-app",
+	   type: "POST",
+	   data: {
+		   del_user_key: key,
+		   del_user_id: id
+	   },
+	   success: function(response) {
+	       var r = $.parseJSON(response);
+	       if(r.code == 200) {
+	    	   openSuccess(r.message);
+		       $('#app_' + id).parent().parent().remove();
+	       } else {
+	    	   openError(r.message);
+	       }
+	   },
+	   error: function(response) {
+	       var r = $.parseJSON(response.responseText);
+	       openError(r.message);
+	   }
+	});
+}
+
 function initListOverlays() {
     $("#view_token").overlay({
         mask: {
@@ -324,6 +384,24 @@ function initListOverlays() {
     });
 
     $('#add_friend').overlay({
+        mask: {
+            color: '#000',
+            loadSpeed: 200,
+            opacity: 0.7
+        },
+        closeOnClick: false,
+    });
+    
+    $('#add_app').overlay({
+        mask: {
+            color: '#000',
+            loadSpeed: 200,
+            opacity: 0.7
+        },
+        closeOnClick: false,
+    });
+    
+    $('#view_app_login').overlay({
         mask: {
             color: '#000',
             loadSpeed: 200,

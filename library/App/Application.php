@@ -56,7 +56,8 @@ class Application
             \define('BASE_URL', 'http://'.$httpHost.$path.'/' );
 
 			$action = $this->getActionClass($requestUri);
-			$action->run();
+			$params = $this->getParams($requestUri);
+			$action->run($params);
 			
 		} catch (\Exception $e) {
 			$action = new Action\ErrorAction();
@@ -99,6 +100,34 @@ class Application
 		}
 		
 		return new $class;
+		
+	}
+	
+	/**
+     * Extracts the any parameters from a request uri
+     *
+     * @param string $name
+     * @return \App\Action\iAction
+     */
+	private function getParams($name)
+	{
+		//Strip rest of url if not in its own VirtualHost
+		$name = substr($name, strrpos($name, 'public') );
+		$name = str_replace('public/', '', $name);
+		if ($name == "" || null === $name || $name == "/") return false;
+
+        if (\substr($name, 0, 1) == '/'){
+            $name = \substr($name, 1);
+        }
+	
+        $params = array();
+        
+        if (strpos($name, '/') != false) {
+        	$param_string = strstr($name, '/');
+        	$params = explode("/", \substr($param_string, 1));
+		}
+		
+		return $params;
 		
 	}
     

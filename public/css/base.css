@@ -8,9 +8,9 @@
 .s2  { width: 136px; }
 .s3  { width: 219px; }
 .s4  { width: 302px; }
-.s5  { width: 385px; }
+.s5  { width: auto; }
 .s6  { width: 468px; }
-.s7  { width: 551px; }
+.s7  { width: 450px; }
 .s8  { width: 634px; }
 .s9  { width: 717px; }
 .s10 { width: 800px; }

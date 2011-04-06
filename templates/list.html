@@ -4,7 +4,9 @@
 
 <div id="user_list">
 <p class="cmds">
-	<a href="javascript:deleteAllUsers();" title="Click here to remove all users."><img src="images/delete.png" alt="Delete All Users"></a>
+	{% if user_is_admin %}<a href="javascript:deleteAllUsers();" title="Click here to remove all users.">
+		<img src="images/delete.png" alt="Delete All Users">
+	</a>{% endif %}
 	<a href="javascript:loadAllUserInfo();" title="Click here to load the users' details.">Load all users</a>
 </p>
 <h1>Existing Test Users</h1>
@@ -17,8 +19,8 @@
 		<div class="wrapper">
 			<p class="cmds">
 				<a href="{{user.login_url}}" title="Click here to login with this user on facebook."><img src="images/connect.png" alt="User login URL"></a>
-				<a href="javascript:addFriend({{user.id}},'{{user.access_token}}');" title="Click here to add a new friend to this user and see existing friends."><img src="images/user_add.png" alt="Add new friend"></a>
-				<a href="javascript:deleteUser({{user.id}},'{{user.access_token}}');" title="Click here to remove this user."><img src="images/delete.png" alt="Delete User"></a>
+				{% if user_is_admin %}<a href="javascript:addFriend({{user.id}},'{{user.access_token}}');" title="Click here to add a new friend to this user and see existing friends."><img src="images/user_add.png" alt="Add new friend"></a>{% endif %}
+				{% if user_is_admin %}<a href="javascript:deleteUser({{user.id}},'{{user.access_token}}');" title="Click here to remove this user."><img src="images/delete.png" alt="Delete User"></a>{% endif %}
 				<a href="javascript:showToken('{{user.access_token}}');" title="Click here to view this user's access token."><img src="images/token.png" alt="View Access Token"></a>
 				<a href="javascript:loadUserInfo({{user.id}},'{{user.access_token}}');" title="Click here to load the user's details.">Load</a>
 			</p>

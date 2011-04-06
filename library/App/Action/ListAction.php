@@ -5,7 +5,7 @@ namespace App\Action;
 class ListAction extends Base
 {
 	
-	public function run()
+	public function run($params = null)
 	{
         if (!$this->checkTokens()){
             return;
@@ -25,7 +25,11 @@ class ListAction extends Base
 
         //Render Template
         $tpl = $this->getTplEngine()->loadTemplate('list.html');
-        $tpl->display(array('users' => $testUsers));
+		$user_is_admin = (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true);
+        $tpl->display(array(
+        	'users' => $testUsers, 
+        	'user_is_admin' => $user_is_admin
+        ));
 	}
 	
 }

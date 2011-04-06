@@ -14,7 +14,6 @@ interface iAction
      * Run action
      */
 	public function run();
-	
 }
 
 ?>
