@@ -16,8 +16,8 @@ $includePaths[] = LIB_PATH . "vendor/";
 set_include_path( get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $includePaths)  );
 
 //Load Facebook App Config or trigger Session
-if (file_exists(ROOT_PATH . 'config/config.ini.php')){
-    require_once ROOT_PATH . 'config/config.ini.php';
+if (file_exists(ROOT_PATH . 'config/config.php')){
+    require_once ROOT_PATH . 'config/config.php';
     
     if (!defined('FACEBOOK_APP_ID')){
         define('USE_SESSION', true);
