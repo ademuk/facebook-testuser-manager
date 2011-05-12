@@ -10,7 +10,9 @@ class ListAction extends Base
         if (!$this->checkTokens()){
             return;
         }
-
+		
+        $user_is_admin = $this->checkAdmin();
+        
 		try{
             //Get list of users
             $fb = $this->getFacebookClient();
@@ -25,11 +27,10 @@ class ListAction extends Base
 
         //Render Template
         $tpl = $this->getTplEngine()->loadTemplate('list.html');
-		$user_is_admin = (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true);
-        $tpl->display(array(
-        	'users' => $testUsers, 
-        	'user_is_admin' => $user_is_admin
-        ));
+		
+        $this->context['users'] = $testUsers;
+        $this->context['user_is_admin'] = $user_is_admin;
+        $tpl->display($this->context);
 	}
 	
 }

@@ -15,7 +15,18 @@ abstract class Base implements iAction
      * @var boolean
      */
     protected $isAjax = false;
-
+    
+    /**
+     * @var array
+     */
+    protected $context = array();
+	
+    public function __construct()
+    {
+    	$this->context['app_name'] = isset($_SESSION['APP_NAME']) ? $_SESSION['APP_NAME'] : "";
+    	$this->context['fb_app_id'] = isset($_SESSION['FACEBOOK_APP_ID']) ? $_SESSION['FACEBOOK_APP_ID'] : "";
+    }
+    
     /**
 	 * @return \App\Facebook\Client
 	 */
@@ -49,12 +60,10 @@ abstract class Base implements iAction
      */
     public function redirectToError($e, $isAjax = false)
     {
-
         $error = new ErrorAction();
         $error->setIsAjax($isAjax);
         $error->setError($e);
         $error->run();
-
     }
 
     public function getIsAjax()
@@ -81,6 +90,16 @@ abstract class Base implements iAction
         }
         
         return true;
+    }
+    
+	/**
+     * Verifies if user is admin
+     *
+     * @return boolean
+     */
+    protected function checkAdmin()
+    {
+        return (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin']);
     }
 
 }

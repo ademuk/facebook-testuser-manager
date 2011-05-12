@@ -17,13 +17,15 @@ class AjaxCreateAction extends Base
 
             $user = $fb->api('/'.$fb->getAppId().'/accounts/test-users', 'POST', $params);
 
-            if (is_array($user)){
+            if (is_array($user) && $params['installed']){
 
                 $fb->setAccessToken($user['access_token']);
                 $details = $fb->api('/me');
 
                 $user = \array_merge($user,$details);
                 $success = true;
+            } else {
+            	$user['name'] = 'Unknown';
             }
 
         } catch(\Exception $e) {
@@ -31,7 +33,7 @@ class AjaxCreateAction extends Base
             return;
         }
 
-        $response = new \App\JsonResponse(200, "A new Test User (<a href=\"" . $user["login_url"] . "\">" . $user["name"] . "</a>) was created!", $user);
+        $response = new \App\JsonResponse(200, "A new Test User (<a href=\"" . $user['login_url'] . "\">" . $user['name'] . "</a>) was created!", $user);
         $response->sendOutput();
 	}
 

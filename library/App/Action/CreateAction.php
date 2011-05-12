@@ -17,7 +17,6 @@ class CreateAction extends Base
             $user = $fb->api('/'.$fb->getAppId().'/accounts/test-users', 'POST', $params);
 
             if (is_array($user)){
-
                 $fb->setAccessToken($user['access_token']);
                 $details = $fb->api('/me');
 

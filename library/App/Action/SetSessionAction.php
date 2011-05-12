@@ -34,13 +34,12 @@ class SetSessionAction extends Base
         //Render Template
 		$tpl = $this->getTplEngine()->loadTemplate('set_session.html');
 		$user_is_admin = (isset($_SESSION['user_is_admin']) && $_SESSION['user_is_admin'] == true);
-        $tpl->display(array(
-            'appId' => $appId, 
-            'appSecret' => $appSecret, 
-            'sessionAppId' => $sessionAppId,
-            'noSession' => $noSession, 
-        	'user_is_admin' => $user_is_admin
-        ));
+        $this->context['user_is_admin'] = $user_is_admin;
+        $this->context['appId'] = $appId;
+        $this->context['appSecret'] = $appSecret;
+        $this->context['sessionAppId'] = $sessionAppId;
+        $this->context['noSession'] = $noSession;
+        $tpl->display($this->context);
         
 	}
 	

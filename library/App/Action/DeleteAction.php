@@ -15,7 +15,7 @@ class DeleteAction extends Base
             $token = $this->getInspekt()->post->getRaw('del_user_token');
 
             //API call
-            $fb->setAccessToken($token);
+            //$fb->setAccessToken($token);
             $res = $fb->api('/'.$uid, 'DELETE');
 
         } catch (\Exception $e) {
