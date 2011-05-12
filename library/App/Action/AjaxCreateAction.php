@@ -33,7 +33,7 @@ class AjaxCreateAction extends Base
             return;
         }
 
-        $response = new \App\JsonResponse(200, "A new Test User (<a href=\"" . $user['login_url'] . "\">" . $user['name'] . "</a>) was created!", $user);
+        $response = new \App\JsonResponse(200, "Created: <a href=\"" . $user['login_url'] . "\">" . $user['name'] . "</a>. Email: " . $user['email'] . ". Password: " .  $user['password'], $user);
         $response->sendOutput();
 	}
 
