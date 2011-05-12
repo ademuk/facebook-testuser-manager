@@ -10,8 +10,6 @@ class ListAction extends Base
         if (!$this->checkTokens()){
             return;
         }
-		
-        $user_is_admin = $this->checkAdmin();
         
 		try{
             //Get list of users
@@ -29,7 +27,6 @@ class ListAction extends Base
         $tpl = $this->getTplEngine()->loadTemplate('list.html');
 		
         $this->context['users'] = $testUsers;
-        $this->context['user_is_admin'] = $user_is_admin;
         $tpl->display($this->context);
 	}
 	

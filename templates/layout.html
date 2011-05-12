@@ -35,7 +35,7 @@
 			</div>
 			<div id="menu" class="s5">
 				<ul>
-					<li><a href="list">List Users</a></li>
+					{% if app_name %}<li><a href="list">List Users</a></li>{% endif %}
 					{% if user_is_admin %}<li><a href="new">Add User(s)</a></li>{% endif %}
 					{% if user_is_admin %}<li><a href="apps">Manage Apps</a></li>{% endif %}
 					{% if user_is_admin %}<li><a href="set-session">Set/Unset App</a></li>{% endif %}
