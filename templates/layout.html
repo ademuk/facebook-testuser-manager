@@ -26,9 +26,9 @@
 			<div class="s7 gutter">
 				<a href="list"><img id="logo" src="images/logo-48.png" alt="Facebook Test User Manager"></a>
 				<a href="list"><h1 id="facebook_test_user_manager">Test User Manager for Facebook</h1>
-				{% if app_name %}<h2>{{ app_name }} - 
+				<h2>{{ app_name }}{% if app_name %} - 
 				{% if user_is_admin %}Managing {% endif %}
-				App ID {{ fb_app_id }}</h2></a>{% endif %}
+				App ID {{ fb_app_id }}{% endif %}</h2></a>
 			</div>
 			<div class="s3">
 				
