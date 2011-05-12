@@ -2,6 +2,6 @@
 Icon?
 .svn
 ftum.tmproj
-config/config.ini.php
-!config/config.ini.php.sample
-
+.pydevproject
+config/config.php
+config/apps.ini
