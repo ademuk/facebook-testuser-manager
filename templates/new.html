@@ -13,12 +13,12 @@
 			<li>
 				<label for="installed">Should the application already be installed?</label>
 				<input type="radio" name="installed" value="1" checked="checked"> Yes
-				<input type="radio" name="installed" value="0"> No
+				<input type="radio" name="installed" value="0" checked="checked"> No
 			</li>
 			<li>
 				<label for="matrix">Apply friendship matrix?</label>
-				<input type="radio" name="matrix"  value="1"> Yes
-				<input type="radio" name="matrix" value="0" checked="checked"> No
+				<input type="radio" name="matrix"  value="1" checked="checked"> Yes
+				<input type="radio" name="matrix" value="0"> No
 			</li>
 			<li>
 				<label for="matrix">Number of users</label>
@@ -27,6 +27,11 @@
 			<li><input type="submit" value="Continue &rarr;"></li>
 		</ul>
 	</fieldset>
+	<ul id="new_form_shortcuts">
+	<li><h3>Shortcuts</h3></li>
+	<li><a href="javascript:submitNewUserForm(null, 1, 1, 10)" title="Create 10 users with friendship matrix">10 users with friendship matrix.</a></li>
+	<li><a href="javascript:submitNewUserForm(null, 1, 1, 100)" title="Create 100 users with friendship matrix">100 users with friendship matrix.</a></li>
+	</ul>
 </form>
 
 <div id="friendship_matrix" class="hidden modal form_div">

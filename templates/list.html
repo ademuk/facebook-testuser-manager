@@ -18,8 +18,8 @@
 		<li>
 		<div class="wrapper">
 			<p class="cmds">
-				<a href="{{user.login_url}}" title="Click here to login with this user on facebook."><img src="images/connect.png" alt="User login URL"></a>
-				{% if user_is_admin %}<a href="javascript:addFriend({{user.id}},'{{user.access_token}}');" title="Click here to add a new friend to this user and see existing friends."><img src="images/user_add.png" alt="Add new friend"></a>{% endif %}
+				<a href="{{user.login_url}}" title="Click here to login with this user on facebook." target="_blank"><img src="images/connect.png" alt="User login URL"></a>
+				<a href="javascript:addFriend({{user.id}},'{{user.access_token}}');" title="Click here to {% if user_is_admin %}add a new friend to this user and {% endif %}see existing friends."><img src="images/user_add.png" alt="User friends"></a>
 				{% if user_is_admin %}<a href="javascript:deleteUser({{user.id}},'{{user.access_token}}');" title="Click here to remove this user."><img src="images/delete.png" alt="Delete User"></a>{% endif %}
 				<a href="javascript:showToken('{{user.access_token}}');" title="Click here to view this user's access token."><img src="images/token.png" alt="View Access Token"></a>
 				<a href="javascript:loadUserInfo({{user.id}},'{{user.access_token}}');" title="Click here to load the user's details.">Load</a>
@@ -36,7 +36,7 @@
 
 <div id="add_friend" class="hidden modal form_div">
 	<form action="addfriend" method="post" accept-charset="utf-8">
-		<fieldset id="create_relationship_with_other_user" class="">
+		{% if user_is_admin %}<fieldset id="create_relationship_with_other_user" class="">
 			<legend>Create relationship with other user</legend>
 			<input type="hidden" name="origin_user" value="" id="origin_user">
 			<input type="hidden" name="origin_user_token" value="" id="origin_user_token">
@@ -53,13 +53,21 @@
 					<input type="button" class="close" name="Cancel" value="Cancel" id="Cancel">
 				</li>
 			</ul>
-		</fieldset>
+		</fieldset>{% endif %}
 		<fieldset id="existing_friends" class="">
 			<legend>Existing Friends</legend>
 			
 			<ul id="friend-list"> 
 				<li class="loading"><img src="images/loading-small.gif" alt=""></li>
+				
 			</ul>
+			{% if not user_is_admin %}
+			<ul>
+				<li>
+					<input type="button" class="close" name="Cancel" value="Close" id="Cancel">
+				</li>
+			</ul>
+			{% endif %}
 			
 		</fieldset>
 	</form>

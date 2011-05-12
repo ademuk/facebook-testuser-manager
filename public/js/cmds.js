@@ -31,24 +31,29 @@ function loadUserInfo(uid, token) {
 	        },
 	        error: function(response) {
 	        	var r = $.parseJSON(response.responseText);
+	        	$('#user_' + uid).parent().removeClass('loading');
 	        	$('#user_' + uid).addClass('loaded')
-	        					 .html('Error: ' + r.message)
-	        					 .parent().removeClass('loading');
+	        					 .html('Error: ' + r.message);
+	        					 
 	        }
 	    });
 	}
 }
 
-function submitNewUserForm() {
+function submitNewUserForm(perms, install_app, apply_matrix, quantity) {
+	var permissions = (perms) ? perms : $('#permissions').val();
+	var installed = (install_app) ? install_app : $('input:radio[name=installed]:checked').val();
+	
+	currentQueuedUserApplyMatrix = (apply_matrix) ? apply_matrix : $('input:radio[name=matrix]:checked').val();
+	totalQueuedItems = (quantity) ? quantity : parseInt($('#quantity').val());
+	
 	var data = {
-		permissions: $('#permissions').val(),
-		installed: $('input:radio[name=installed]:checked').val()
+		permissions: permissions,
+		installed: installed
 	}
 	
-	totalQueuedItems = parseInt($('#quantity').val());
 	currentQueuedItem = 0;
 	currentQueuedData = data;
-	currentQueuedUserApplyMatrix = $('input:radio[name=matrix]:checked').val() == 1;
 	createdUsers = [];
 	
 	openLoading();
@@ -315,6 +320,7 @@ function submitAddApp() {
         success: function(response) {
             var r = $.parseJSON(response);
             openSuccess(r.message);
+            redirect('/apps');
         },
         error: function(response) {
             var r = $.parseJSON(response.responseText);
