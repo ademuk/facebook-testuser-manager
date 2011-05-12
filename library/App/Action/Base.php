@@ -23,6 +23,7 @@ abstract class Base implements iAction
 	
     public function __construct()
     {
+    	$this->context['user_is_admin'] = $this->checkAdmin();
     	$this->context['app_name'] = isset($_SESSION['APP_NAME']) ? $_SESSION['APP_NAME'] : "";
     	$this->context['fb_app_id'] = isset($_SESSION['FACEBOOK_APP_ID']) ? $_SESSION['FACEBOOK_APP_ID'] : "";
     }
