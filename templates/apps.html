@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div id="user_list">
+<p class="cmds">
+	<a href="javascript:addApp();" title="Click here to add an app.">New App</a>
+</p>
+<h1>Existing Apps</h1>
+</div>
+
+<div class="user_list">
+	<ul>
+		{% for key, app in apps %}
+		<li>
+		<div class="wrapper">
+			<p class="cmds">
+				<a href="javascript:showAppLogin('{{app.login}}');" title="Click here to show logn details"><img src="images/connect.png" alt="User login URL"></a>
+				{% if not app.admin %}<a href="javascript:deleteApp('{{key}}','{{app.id}}');" title="Click here to remove this app."><img src="images/delete.png" alt="Delete User"></a>{% endif %}
+			</p>
+		<p>ID:{{app.id}} <span class="id">{{app.name}}</span></p>
+		<p>App ID: {{app.app_id}}<br/>App Secret: {{app.app_secret}}</p>
+		<div id="app_{{app.id}}" class="holder">
+		</div>
+
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div id="add_app" class="hidden modal form_div">
+	<form action="addapp" method="post" accept-charset="utf-8">
+		<fieldset>
+			<legend>Create App</legend>
+			<ul>
+				<li>
+				App Name (e.g. Roger's App):<br/>
+					<input type="text" name="app_name" id="app_name">
+				</li>
+				<li>
+				App ID (e.g. 200 or 201): <br/>
+					<input type="text" name="app_id" id="app_id">
+				</li>
+				<li>
+					
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>Facebook details</legend>
+			
+			<ul> 
+				<li>
+				Facebook App ID:<br/>
+					<input type="text" name="facebook_app_id" id="facebook_app_id">
+				</li>
+				<li>
+				Facebook App Secret:<br/>
+					<input type="text" name="facebook_app_secret" id="facebook_app_secret">
+				</li>
+			</ul>
+			
+		</fieldset>
+		<br/>
+		<input type="button" class="submit" id="submit-addapp" value="Add app &rarr;">
+		<input type="button" class="close" name="Cancel" value="Cancel" id="Cancel">
+	</form>
+</div>
+
+<div id="view_app_login" class="hidden modal token_div">
+	<h2>Login URL</h2>
+	<p id="view_app_login_p"></p>
+
+	<p><input type="image" src="images/overlay/apple-close.png" width="28" height="28" class="close btn_close" name="Close" id="Close"></p>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		initListOverlays();
+		initTooltips();
+		$('#submit-addapp').click(function (){ submitAddApp(); });
+	})
+</script>
+{% endblock %}
+
