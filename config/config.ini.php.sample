@@ -1,4 +1,4 @@
 <?php
 
-define('FACEBOOK_APP_ID', 'Insert key');
-define('FACEBOOK_APP_SECRET', 'Insert key');
+define('FACEBOOK_APP_ID', '188060507905814');
+define('FACEBOOK_APP_SECRET', '6c4dba778fa3383ee9d86ddf16934896');
